@@ -1,11 +1,13 @@
 # Tämä on painonhallintasovelluksen pääohjelma
 
 # Kirjastojen ja modulien käyttöönotot
-import sanity as s
+import sanity
     
 # Varsinaisen pääohjelman alku
 
 # Komponenttien alustukset
 
-# Työsilmukka
-s.on_jarkeva
+# Työsilmukka, ikuinen silmukka, jossa poistumistoiminto
+
+while 
+

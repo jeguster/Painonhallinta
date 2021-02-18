@@ -4,7 +4,8 @@
 # 2. Vaihdetaan vahingossa syötetty desimaalipilkku (,) desimaalipisteeksi (.)
 # 3. Määritellään järkevän arvon alaraja (pienin hyväksyttävä arvo)
 # 4. Määritellään järkevän arvon yläraja (suurin hyväksyttävä arvo)
-
+""" Tarkistetaan käyttäjän syöttämät tiedot
+"""
 def on_jarkeva(syote, alaraja, ylaraja):
     """
     Puhdistaa merkkijonosta ylimääräiset tulostumattomat merkit ja välilyönnit sekä selvittää onko syötetty arvo annettujen rajojen sisällä. Funktio muutta desimaali pilkun desimaalipisteeksi.
@@ -47,12 +48,15 @@ def on_jarkeva(syote, alaraja, ylaraja):
     # Tarkistetaan, ettei syöte ole ylärajan yläpuolella
     try:
         if luku > ylaraja:
-            raise Exception('Syöttämäsi arvo on yli sallitus')
+            raise Exception('Syöttämäsi arvo on yli sallitun')
     except Exception as virheilmoitus:
         print(virheilmoitus)
     
     # Palautetaan luku
     return luku
+
+# Jos sanity.py-tiedostoa ajetaan terminaalissa, suoritetaan testit
+    if __name__== '__main__':
 
 
 # Testataan toimintaa
