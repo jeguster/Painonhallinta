@@ -75,8 +75,24 @@ def liukuluku_ok(syote, alaraja, ylaraja):
     pilkunpaikka = puhdistettumerkkijono.find(',')
 
     # Jos pilkku löytyi, koravataan pisteellä
-    if pilkunpaikka != -1:
-        
+    if pilkunpaikka != -1: # Jos ei löydy indeksi on aina -1
+        numeroarvo = puhdistettumerkkijono.replace(',', '.') # Muutetaan
+    else:
+        numeroarvo = puhdistettumerkkijono # ei muuteta
+    
+    #Etsitään desimaalipistettä merkkijonosta
+    pisteenpaikka = numeroarvo.find('.')
+
+    # Jos desimaalipiste löytyy, jaetaan pisteen kohdalta erillisiksi merkkijonoiksi
+    if pisteenpaikka != -1:
+        osat = numeroarvo.split('.') # Syntyy lista osista
+        osien_maara = len(osat)
+        if osien_maara: > 2:    
+            virhekoodi = 1
+            virhesanoma = "Syötteessä on useita desimaalipisteita tai useita arvoja: vain yksi liukuluku on sallittu"
+            arvo = 0
+        elif condition:
+            
     tulokset = None
     return tulokset
     
