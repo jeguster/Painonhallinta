@@ -4,8 +4,11 @@
 # 2. Vaihdetaan vahingossa syötetty desimaalipilkku (,) desimaalipisteeksi (.)
 # 3. Määritellään järkevän arvon alaraja (pienin hyväksyttävä arvo)
 # 4. Määritellään järkevän arvon yläraja (suurin hyväksyttävä arvo)
-""" Tarkistetaan käyttäjän syöttämät tiedot
+
+""" Tarkistetaan käyttäjän syötteen oikeellisuuden tarkistusfunktioiden avulla
 """
+
+#Funktioiden määrittelyt
 def on_jarkeva(syote, alaraja, ylaraja):
     """
     Puhdistaa merkkijonosta ylimääräiset tulostumattomat merkit ja välilyönnit sekä selvittää onko syötetty arvo annettujen rajojen sisällä. Funktio muutta desimaali pilkun desimaalipisteeksi.
@@ -55,10 +58,34 @@ def on_jarkeva(syote, alaraja, ylaraja):
     # Palautetaan luku
     return luku
 
+def liukuluku_ok(syote, alaraja, ylaraja):
+    """Tarkistaa syötteen olevan numeerinen ja muuttaa sen liukuluvuksi. Syötteellä on alaraja ja yläraja.
+    Args:
+        syote (string): Syötteenä saatu arvo
+        alaraja (float): Pienin hyväksyttävä arvo
+        ylaraja (float): Suurin hyväksyttävä arvo
+
+    Returns:
+        list: Palauttaa arvon (float), virhekoodin (int), virhesanoman(string)
+    """
+    # Puhdistetaan syötteestä ylimääräiset merkit (white space)
+    puhdistettumerkkijono = syote.strip()
+
+    # Tutkitaan onko syötteessä pilkku ja etsitään sen paikka
+    pilkunpaikka = puhdistettumerkkijono.find(',')
+
+    # Jos pilkku löytyi, koravataan pisteellä
+    if pilkunpaikka != -1:
+        
+    tulokset = None
+    return tulokset
+    
+
 # Jos sanity.py-tiedostoa ajetaan terminaalissa, suoritetaan testit
-    if __name__== '__main__':
+if __name__ == '__main__':
 
-
-# Testataan toimintaa
-tulos = on_jarkeva('sata', 1, 500)
-print(tulos)
+    # Testataan toimintaa
+    tulos = on_jarkeva('sata', 1, 500)
+    print(tulos)
+syote = ' 10.5  '
+print(syote.strip(), 'kiloa')
