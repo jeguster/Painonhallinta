@@ -13,7 +13,7 @@ def on_jarkeva(syote, alaraja, ylaraja):
         syote (string): Näppäimistöltä syötetty arvo
         alarja (float): pienin sallittu arvo
         ylaraja (float): suurin sallittu arvo
-    Returns (float) : Käyttäjän syöttämä arvo numeerisena
+    Returns (float): Käyttäjän syöttämä arvo numeerisena
     """
 
     # Poistetaan whitespace merkit merkkijonon alusta
@@ -83,21 +83,53 @@ def liukuluku_ok(syote, alaraja, ylaraja):
     if pisteenpaikka != -1:
         osat = numeroarvo.split('.') # Syntyy lista osista
         osien_maara = len(osat)
+        # Selvitetään onko osia enemmän kuin 2 so. liikaa pil
         if osien_maara > 2:
             virhekoodi = 1
             virhesanoma = "Syötteessä on useita desimaalipisteitä tai useita arvoja: vain yksi liukuluku on sallittu, esim 12.3"
             arvo = 0
 
         else:
+            osa = str(osat[0])
+            if osa.isnumeric() == False:
+                virhekoodi = 2
+                virhesanoma = "Syöte sisältää tekstiä, ainoastaan numerot ja desimaalipiste ovat sallittuja, esim. 123.5"
+                arvo = 0
+            else:
+                osa = str(osat[1])
+                if osa.isnumeric() == False:
+                    virhekoodi = 2
+                    virhesanoma = "Syöte sisältää tekstiä, ainoastaan numerot ja desimaalipiste ovat sallittuja, esim. 123.5"
+                    arvo = 0
+                
+                else:
+                    virhekoodi = 0
+                    virhesanoma = "Syöte OK"
+                    arvo = float(numeroarvo)
+                        
+    elif numeroarvo.isnumeric() == False:
+        virhekoodi = 2
+        virhesanoma = "Syöte sisältää tekstiä, ainoastaan numerot ja desimaalipiste ovat sallittuja, esim. 123.5"
+        arvo = 0
+    else:
+        virhekoodi = 0
+        virhesanoma = "Syöte OK"
+        arvo = float(numeroarvo)
+
+        
+                
             
-    tulokset = None
+    tulokset = [virhekoodi, virhesanoma, arvo]
     return tulokset
     
 # Jos sanity.py-tiedostoa ajetaan terminaalissa, suoritetaan testit
 if __name__ == '__main__':
     
-    # Testataan toimintaa
-    tulos = on_jarkeva('sata', 1, 500)
-    print(tulos)
-syote = ' 10.5   '
-print(syote.strip(), 'kiloa')
+#     Testataan toimintaa
+#     tulos = on_jarkeva('sata', 1, 500)
+#     print(tulos)
+# syote = ' 10.5   '
+# print(syote.strip(), 'kiloa')
+
+    syote = 'sata'
+    print(liukuluku_ok(syote, 0, 500))
