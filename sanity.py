@@ -83,7 +83,7 @@ def liukuluku_ok(syote, alaraja, ylaraja):
     if pisteenpaikka != -1:
         osat = numeroarvo.split('.') # Syntyy lista osista
         osien_maara = len(osat)
-        # Selvitetään onko osia enemmän kuin 2 so. liikaa pil
+        # Selvitetään onko osia enemmän kuin 2 so. liikaa pilk
         if osien_maara > 2:
             virhekoodi = 1
             virhesanoma = "Syötteessä on useita desimaalipisteitä tai useita arvoja: vain yksi liukuluku on sallittu, esim 12.3"
