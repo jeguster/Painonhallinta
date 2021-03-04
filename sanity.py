@@ -83,7 +83,6 @@ def liukuluku_ok(syote, alaraja, ylaraja):
     if pisteenpaikka != -1:
         osat = numeroarvo.split('.') # Syntyy lista osista
         osien_maara = len(osat)
-        # Selvitetään onko osia enemmän kuin 2 so. liikaa pilk
         if osien_maara > 2:
             virhekoodi = 1
             virhesanoma = "Syötteessä on useita desimaalipisteitä tai useita arvoja: vain yksi liukuluku on sallittu, esim 12.3"
@@ -111,13 +110,11 @@ def liukuluku_ok(syote, alaraja, ylaraja):
         virhekoodi = 2
         virhesanoma = "Syöte sisältää tekstiä, ainoastaan numerot ja desimaalipiste ovat sallittuja, esim. 123.5"
         arvo = 0
+        
     else:
         virhekoodi = 0
         virhesanoma = "Syöte OK"
-        arvo = float(numeroarvo)
-
-        
-                
+        arvo = float(numeroarvo)               
             
     tulokset = [virhekoodi, virhesanoma, arvo]
     return tulokset
