@@ -2,6 +2,7 @@
 
 # Modulien ja kirjastojen lataukset
 import sqlite3
+from sqlite3.dbapi2 import SQLITE_INSERT
 
 # Luodaan uusi tietokanta projektin hakemistoon
 tietokannan_nimi = 'painonhallinta.db'
@@ -23,7 +24,7 @@ def luo_taulut(tiedosto):
 
     # Luodaan Henkilö-taulu
     yhteys.execute('''CREATE TABLE henkilo
-        (henkilo_id INTEGER PRIMARY KEY NOT NULL,
+        (henkilo_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         etunimi TEXT NOT NULL,
         sukunimi TEXT NOT NULL,
         sukupuoli INTEGER NOT NULL,
@@ -31,20 +32,35 @@ def luo_taulut(tiedosto):
 
     # Luodaan Mittaukset-taulu
     yhteys.execute('''CREATE TABLE mittaus
-        (mittaus_id INTEGER PRIMARY KEY NOT NULL,
+        (mittaus_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         henkilo_id INTEGER NOT NULL,
         pituus REAL NOT NULL,
-        paino REAL NOT NULL);''')
+        paino REAL NOT NULL,
+        FOREIGN KEY (henkilo_id)
+            REFERENCES henkilo (henkilo_id)
+            ON DELETE CASCADE);''')
 
-    # Suljetaan yhteys
+    # Suljetaan tietokantayhteys taulujen luonnin jälkeen
     yhteys.close()
 
 # Luodaan testidataan
-# TODO: luo rutiinit henkilön ja mittauksen tietojen syöttämiseen
+def lisaa_henkilo(tiedosto, etunimi, sukunimi, sukupuoli, spaiva):
+    # Rakennetaan SQL-lause argumenttien arvoista
+    sql_lause = "INSERT INTO henkilo (etunimi, sukunimi, sukupuoli, spaiva) VALUES (" + "'" + etunimi + "', " + "'" + sukunimi + "', " + sukupuoli + ", " + "'" + spaiva + "');"
+
+
+    yhteys = sqlite3.connect(tiedosto)
+
+    yhteys.execute()
 
 # TODO: luo rutiini tietojen lukemiseksi molemmista tauluista
 
 # Paikallinen testaus
 if __name__ == "__main__":
-    luo_tietokanta(tietokannan_nimi)
-    luo_taulut(tietokannan_nimi)
+    # luo_tietokanta(tietokannan_nimi)
+    # luo_taulut(tietokannan_nimi)
+    etunimi = 'Jorma'
+    sukunimi = 'Dorferson'
+    sukupuoli = 1
+    spaiva = '1968-12-03'
+    sql_lause = "INSERT INTO henkilo (etunimi, sukunimi, sukupuoli, spaiva) VALUES (" + "'" + etunimi + "', " + "'" + sukunimi + "', " + sukupuoli + ", " + "'" + spaiva + "');"
