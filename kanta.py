@@ -68,12 +68,12 @@ def lisaa_henkilo(tiedosto, etunimi, sukunimi, sukupuoli, spaiva):
     # Suljetaan yheys
     yhteys.close()
 
-# TODO: luo funktio, jolla saadaan puolilainausmerkit merkkijonon ympärille
+# Funktio, jolla saadaan puolilainausmerkit merkkijonon ympärille
 def sql_string(kentta):
     kentta = "'" + kentta +"'"
     return kentta
 
-# TODO: luo rutiini mittaustietojen syöttämiseksi mittaukset tauluun
+# Rutiini mittaustietojen syöttämiseksi mittaukset tauluun
 def lisaa_mittaus(tiedosto, henkilo_id, pituus, paino):
     """Lisää henkilön mittaustiedot mittaus-tauluuun
     Args:
@@ -94,7 +94,31 @@ def lisaa_mittaus(tiedosto, henkilo_id, pituus, paino):
 
     # Suljetaan yheys
     yhteys.close()
+
 # TODO: luo rutiini tietojen lukemiseksi molemmista tauluita
+def lue_kaikki(tiedosto, taulu):
+    """[summary]
+    Args:
+        tiedosto (string): tietokantatiedoston nimi
+        taulu (string): taulun nimi
+    Returns:
+        list: tulosjoukon tietueet
+    """
+    lista = []
+    sql_lause = "SELECT * FROM " + taulu + ";"
+
+     # Luodaan yhteys tietokantaan
+    yhteys = sqlite3.connect(tiedosto)
+
+    # Suoritetaan tietueen lisäys SQL-lauseena
+    tulosjoukko = yhteys.execute(sql_lause)
+    for rivi in tulosjoukko:
+        lista.append(rivi)
+    
+    # Suljetaan yheys
+    yhteys.close()
+
+    return lista   
 
 # Paikallinen testaus
 if __name__ == "__main__":
@@ -120,3 +144,9 @@ if __name__ == "__main__":
     print(sql_lause) '''
 
     # lisaa_mittaus(tietokannan_nimi, 2, 171, 74)
+
+    tulosjoukko = lue_kaikki(tietokannan_nimi, 'henkilo')
+    print(tulosjoukko)
+    # BUG: ei löydä näkymää, selvitä, mikä mättää
+    tulosjoukko2 = lue_kaikki(tietokannan_nimi, 'henkilon_mittaukset')
+    print(tulosjoukko2)
